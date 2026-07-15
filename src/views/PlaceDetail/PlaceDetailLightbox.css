@@ -1,0 +1,41 @@
+.detail-lightbox {
+  box-sizing: border-box;
+  padding: 50px 72px;
+  overflow: hidden;
+}
+
+.detail-lightbox > img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100dvh - 100px);
+  border-radius: 12px;
+  object-fit: contain;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+.detail-lightbox > button {
+  z-index: 2;
+  padding: 0;
+  line-height: 0;
+}
+
+.detail-lightbox > button svg {
+  display: block;
+}
+
+.detail-lightbox .lightbox-prev,
+.detail-lightbox .lightbox-next {
+  transform: translateY(-50%);
+}
+
+@media (max-width: 620px) {
+  .detail-lightbox {
+    padding: 58px 12px;
+  }
+
+  .detail-lightbox > img {
+    max-height: calc(100dvh - 116px);
+    border-radius: 8px;
+  }
+}

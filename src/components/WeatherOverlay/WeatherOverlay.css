@@ -1,0 +1,117 @@
+.weather-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.weather-darken {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 30%, transparent, rgba(7, 14, 24, 0.12)),
+    linear-gradient(180deg, rgba(8, 16, 26, 0.06), rgba(8, 16, 26, 0.18));
+}
+
+.rain-layer {
+  position: absolute;
+  inset: -20% 0 0;
+  transform: skewX(-13deg);
+}
+
+.rain-layer span {
+  position: absolute;
+  top: -12%;
+  width: 1px;
+  height: 78px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, rgba(170, 220, 255, 0.9));
+  animation-name: rainFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rainFall {
+  0% {
+    transform: translate3d(0, -120px, 0);
+  }
+
+  100% {
+    transform: translate3d(-90px, 110vh, 0);
+  }
+}
+
+.snow-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.snow-layer span {
+  position: absolute;
+  top: -10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.55);
+  animation-name: snowFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes snowFall {
+  0% {
+    transform: translate3d(0, -20px, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(34px, 50vh, 0) rotate(180deg);
+  }
+
+  100% {
+    transform: translate3d(-22px, 110vh, 0) rotate(360deg);
+  }
+}
+
+.cloud-map-layer {
+  position: absolute;
+  inset: 0;
+  filter: blur(18px);
+}
+
+.cloud-map-layer span {
+  position: absolute;
+  display: block;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 25% 45%, rgba(255, 255, 255, 0.95), transparent 34%),
+    radial-gradient(circle at 48% 35%, rgba(255, 255, 255, 0.92), transparent 38%),
+    radial-gradient(circle at 70% 50%, rgba(255, 255, 255, 0.88), transparent 36%),
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.68), transparent);
+  animation-name: cloudDrift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes cloudDrift {
+  0% {
+    transform: translateX(-35vw);
+  }
+
+  100% {
+    transform: translateX(45vw);
+  }
+}
+
+.effect-clear {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .rain-layer span {
+    height: 58px;
+  }
+
+  .cloud-map-layer {
+    filter: blur(14px);
+  }
+}

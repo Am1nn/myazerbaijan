@@ -1,0 +1,16 @@
+@media (max-width: 620px) {
+  .detail-expand {
+    width: 36px;
+    padding: 0;
+    justify-content: center;
+    gap: 0;
+    line-height: 0;
+  }
+
+  .detail-expand svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+    flex: 0 0 16px;
+  }
+}

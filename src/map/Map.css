@@ -1,0 +1,228 @@
+.mapbox-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  overscroll-behavior: contain;
+}
+
+.mapbox-container .mapboxgl-canvas,
+.mapbox-container .mapboxgl-canvas-container {
+  touch-action: none;
+}
+
+.mapbox-error {
+  position: absolute;
+  z-index: 12;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 30px;
+  background: linear-gradient(145deg, #dfeaf4, #bfd3e5);
+  color: #24364a;
+  text-align: center;
+}
+
+.mapbox-error span {
+  max-width: 360px;
+  padding: 15px 18px;
+  border: 1px solid rgba(255, 255, 255, .7);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .72);
+  box-shadow: 0 14px 38px rgba(28, 55, 82, .14);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.6;
+  backdrop-filter: blur(14px);
+}
+
+.theme-dark .mapbox-error {
+  background: linear-gradient(145deg, #17212d, #23364b);
+  color: #eef4fb;
+}
+
+.theme-dark .mapbox-error span {
+  border-color: rgba(255, 255, 255, .1);
+  background: rgba(17, 26, 37, .78);
+}
+
+.mapboxgl-cooperative-gesture-screen {
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(9, 17, 28, .48);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+.mapboxgl-cooperative-gesture-screen p {
+  max-width: 260px;
+  margin: 0;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 14px;
+  background: rgba(10, 18, 29, .72);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .2);
+}
+
+.mapboxgl-ctrl-group {
+  border: 0 !important;
+  border-radius: 15px !important;
+  overflow: hidden !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 14px 40px rgba(12, 25, 42, 0.16) !important;
+}
+
+.theme-dark .mapboxgl-ctrl-group {
+  background: rgba(26, 34, 45, 0.92) !important;
+}
+
+.theme-dark .mapboxgl-ctrl button + button {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.theme-dark .mapboxgl-ctrl-icon {
+  filter: invert(1);
+}
+
+.mapboxgl-ctrl button {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+/* Stable marker shell: Mapbox owns this element's transform; animations only
+   run on its children so geographic positions never lag behind the map. */
+.place-marker-anchor {
+  width: 0;
+  height: 0;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.place-marker {
+  position: absolute;
+  left: -13px;
+  bottom: 0;
+  width: 26px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  pointer-events: auto;
+}
+
+.place-marker-shape {
+  position: absolute;
+  left: 3px;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255,255,255,.95);
+  border-radius: 50% 50% 50% 0;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg,#668fed,#416ed4);
+  box-shadow: 0 5px 13px rgba(43,76,153,.3);
+  transform: rotate(-45deg);
+  transition: background-color .18s ease,box-shadow .18s ease,filter .18s ease;
+}
+
+.place-marker-shape i {
+  width: 6px;
+  height: 6px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #ff655e;
+  transform: rotate(45deg);
+}
+
+.place-marker-label {
+  position: absolute;
+  left: 50%;
+  bottom: 34px;
+  min-width: max-content;
+  max-width: 190px;
+  padding: 8px 10px;
+  border: 1px solid rgba(62,83,109,.16);
+  border-radius: 11px;
+  display: grid;
+  gap: 3px;
+  overflow: hidden;
+  background: #fff;
+  color: #1b2430;
+  text-align: left;
+  box-shadow: 0 2px 4px rgba(19,36,58,.18),0 10px 28px rgba(19,36,58,.25);
+  backdrop-filter: blur(15px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%,5px) scale(.96);
+  transform-origin: 50% 100%;
+  transition: opacity .18s ease,transform .18s ease;
+}
+
+.place-marker-label strong {
+  max-width: 170px;
+  overflow: hidden;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.place-marker-label small {
+  color: #78818d;
+  font-size: 8px;
+  font-weight: 650;
+}
+
+.place-marker:hover .place-marker-label,
+.place-marker:focus-visible .place-marker-label,
+.place-marker.is-selected .place-marker-label {
+  opacity: 1;
+  transform: translate(-50%,0) scale(1);
+}
+
+.place-marker:hover .place-marker-shape,
+.place-marker:focus-visible .place-marker-shape,
+.place-marker.is-selected .place-marker-shape {
+  background: linear-gradient(145deg,#4f7ce8,#2e5fc8);
+  box-shadow: 0 0 0 5px rgba(79,124,232,.18),0 8px 18px rgba(43,76,153,.35);
+  filter: saturate(1.08);
+}
+
+.place-marker:focus-visible .place-marker-shape {
+  outline: 3px solid rgba(79,124,232,.32);
+  outline-offset: 4px;
+}
+
+.theme-dark .place-marker-label {
+  border-color: rgba(255,255,255,.12);
+  background: rgba(20,28,38,.94);
+  color: #f3f6fa;
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+}
+
+.theme-dark .place-marker-label small {
+  color: #a4afbd;
+}
+
+@media (max-width: 768px) {
+  .mapboxgl-ctrl-top-right {
+    top: 266px !important;
+    right: 10px !important;
+  }
+
+  .place-marker-label {
+    display: none;
+  }
+}
