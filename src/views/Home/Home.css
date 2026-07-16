@@ -76,11 +76,13 @@ button { color: inherit; }
 .panel-assistant-heading small{color:var(--muted);font-size:9px}
 .panel-assistant .ask-bar{position:static;min-height:48px;height:48px;padding:5px 6px 5px 13px;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:none}
 .panel-assistant .ask-bar input{min-width:0;color:var(--ink);font-size:11px}
-.panel-assistant .send-button{background:var(--soft-blue);color:#628bea}
-.assistant-conversation{min-height:160px;display:flex;flex-direction:column;gap:9px;padding:12px;margin-bottom:9px;border-radius:14px;background:var(--surface)}
+.panel-assistant .send-button{flex:0 0 36px;width:36px;height:36px;padding:0;border:1px solid rgba(79,124,232,.16);border-radius:50%;display:grid;place-items:center;background:#5d84df;color:#fff;box-shadow:0 5px 14px rgba(63,105,200,.2)}
+.panel-assistant .send-button svg{width:15px;height:15px;display:block}
+.assistant-conversation{height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:9px;padding:12px;margin-bottom:9px;border-radius:14px;background:var(--surface)}
 .ai-message{max-width:82%;padding:10px 12px;border-radius:13px 13px 13px 4px;background:var(--soft-blue);color:var(--ink);font-size:10px;line-height:1.55}
 .ai-context{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:9px}.ai-context svg{width:12px;color:#e75c55}
 .user-preview{align-self:flex-end;max-width:82%;padding:9px 11px;border-radius:13px 13px 4px 13px;background:#5d84df;color:white;font-size:10px;line-height:1.45}
+.ai-loading{color:var(--muted);font-style:italic}.panel-assistant .ask-bar input:disabled{cursor:not-allowed;opacity:.65}.panel-assistant .send-button:disabled{cursor:not-allowed;border-color:var(--line);background:var(--soft-blue);color:#8ca5dc;opacity:1;transform:none;box-shadow:none}.panel-assistant .send-button:not(:disabled):hover{background:#4f76d2;box-shadow:0 7px 17px rgba(63,105,200,.3)}
 
 .theme-dark .assistant-card,.theme-dark .map-search-box{background:rgba(21,28,37,.94);color:var(--ink)}
 .theme-dark .map-fullscreen-button,.theme-dark .map-place-preview{border-color:rgba(255,255,255,.12);background:rgba(21,28,37,.94);color:#f3f6fa}.theme-dark .map-place-preview span{color:#a6b0bd}.theme-dark .map-place-preview>div>button{background:#293441;color:#fff}

@@ -52,7 +52,7 @@ export default function Places() {
       <section className="modern-place-grid">
         {visiblePlaces.map((place, index) => (
           <Link className="modern-place-card" href={`/places/${place.slug}`} key={place.id}>
-            <div className="card-photo"><img src={getPlaceImage(place.id)} alt={place.name[contentLang]} /><span>0{index + 1}</span><i>{place.period[contentLang]}</i></div>
+            <div className="card-photo"><img src={getPlaceImage(place.id)} alt={place.name[contentLang]} loading={index < 2 ? "eager" : "lazy"} decoding="async" fetchPriority={index === 0 ? "high" : "auto"} /><span>0{index + 1}</span><i>{place.period[contentLang]}</i></div>
             <div className="card-body"><small><MapPin />{place.city[contentLang]}</small><h2>{place.name[contentLang]}</h2><p>{place.shortDescription[contentLang]}</p><b>{t.explore}<ArrowUpRight /></b></div>
           </Link>
         ))}

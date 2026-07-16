@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Camera, ChevronLeft, ChevronRight, ExternalLink, MapPin, Maximize2, Menu, Moon, Navigation, Sun, X } from "lucide-react";
 import Link from "next/link";
 import { placeCategories, places } from "../../data/places";
@@ -38,11 +38,32 @@ export default function PlaceDetail({ slug }) {
   const [activeImage, setActiveImage] = useState(0);
   const [lightbox, setLightbox] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
+  const swipeStartRef = useRef(null);
   const contentLang = lang;
   const images = place ? getPlaceImages(place.id) : [];
   const t = text[lang];
   const previous = () => setActiveImage((current) => (current - 1 + images.length) % images.length);
   const next = () => setActiveImage((current) => (current + 1) % images.length);
+
+  const startImageSwipe = (event) => {
+    const touch = event.touches[0];
+    swipeStartRef.current = touch ? { x: touch.clientX, y: touch.clientY } : null;
+  };
+
+  const finishImageSwipe = (event) => {
+    const start = swipeStartRef.current;
+    swipeStartRef.current = null;
+    if (!start || !window.matchMedia("(max-width: 700px)").matches) return;
+
+    const touch = event.changedTouches[0];
+    if (!touch) return;
+    const deltaX = touch.clientX - start.x;
+    const deltaY = touch.clientY - start.y;
+    if (Math.abs(deltaX) < 45 || Math.abs(deltaX) <= Math.abs(deltaY) * 1.2) return;
+
+    if (deltaX < 0) next();
+    else previous();
+  };
 
   useEffect(() => {
     if (!lightbox) return undefined;
@@ -70,8 +91,8 @@ export default function PlaceDetail({ slug }) {
       <section className="place-title"><span>{t.selected}</span><h1>{place.name[contentLang]}</h1><div><b><MapPin />{place.city[contentLang]}</b><b>{place.period[contentLang]}</b></div></section>
       <section className="detail-layout">
         <div className="detail-media">
-          <div className="detail-stage"><img src={images[activeImage]} alt={`${place.name[contentLang]} ${activeImage + 1}`} /><span><Camera />{activeImage + 1} / {images.length}</span><button className="detail-expand" onClick={() => setLightbox(true)}><Maximize2 />{t.fullscreen}</button><button className="stage-prev" onClick={previous}><ChevronLeft /></button><button className="stage-next" onClick={next}><ChevronRight /></button></div>
-          <div className="detail-thumbs">{images.map((image, index) => <button className={index === activeImage ? "active" : ""} onClick={() => setActiveImage(index)} key={image}><img src={image} alt="" /></button>)}</div>
+          <div className="detail-stage" onTouchStart={startImageSwipe} onTouchEnd={finishImageSwipe} onTouchCancel={() => { swipeStartRef.current = null; }}><img src={images[activeImage]} alt={`${place.name[contentLang]} ${activeImage + 1}`} draggable="false" /><span><Camera />{activeImage + 1} / {images.length}</span><button className="detail-expand" onClick={() => setLightbox(true)}><Maximize2 />{t.fullscreen}</button><button className="stage-prev" onClick={previous}><ChevronLeft /></button><button className="stage-next" onClick={next}><ChevronRight /></button></div>
+          <div className="detail-thumbs">{images.map((image, index) => <button className={index === activeImage ? "active" : ""} onClick={() => setActiveImage(index)} key={image}><img src={image} alt="" loading="lazy" decoding="async" /></button>)}</div>
         </div>
         <article className="place-copy"><span>{t.story}</span><p className="lead">{place.description[contentLang]}</p><p>{additionalDescription[contentLang](place.name[contentLang])}</p><h2>{t.facts}</h2><ul>{place.facts[contentLang].map((fact) => <li key={fact}>{fact}</li>)}</ul>
           <div className="route-panel"><div><Navigation /><span><strong>{t.route}</strong><small>{coordinates}</small></span></div><div className="route-links"><a className="route-google" href={`https://www.google.com/maps/dir/?api=1&destination=${coordinates}`} target="_blank" rel="noreferrer"><span className="route-logo"><img src={googleMapsLogo.src} alt="" /></span><span><small>{t.openWith}</small><strong>Google Maps</strong></span><ExternalLink /></a><a className="route-waze" href={`https://www.waze.com/ul?ll=${coordinates}&navigate=yes`} target="_blank" rel="noreferrer"><span className="route-logo"><img src={wazeLogo.src} alt="" /></span><span><small>{t.openWith}</small><strong>Waze</strong></span><ExternalLink /></a></div></div>
@@ -85,14 +106,14 @@ export default function PlaceDetail({ slug }) {
           <div className="related-grid">
             {relatedPlaces.map((relatedPlace) => (
               <Link className="related-card" href={`/places/${relatedPlace.slug}`} key={relatedPlace.id}>
-                <div className="related-image"><img src={getPlaceImage(relatedPlace.id)} alt={relatedPlace.name[contentLang]} /><span>{placeCategories[relatedPlace.category]?.[contentLang]}</span></div>
+                <div className="related-image"><img src={getPlaceImage(relatedPlace.id)} alt={relatedPlace.name[contentLang]} loading="lazy" decoding="async" /><span>{placeCategories[relatedPlace.category]?.[contentLang]}</span></div>
                 <div className="related-card-copy"><small><MapPin />{relatedPlace.city[contentLang]}</small><h3>{relatedPlace.name[contentLang]}</h3><p>{relatedPlace.shortDescription[contentLang]}</p><b>{t.discover}<ArrowUpRight /></b></div>
               </Link>
             ))}
           </div>
         </section>
       )}
-      {lightbox && <div className="detail-lightbox" role="dialog" aria-modal="true"><button className="lightbox-close" onClick={() => setLightbox(false)}><X /></button><img src={images[activeImage]} alt={`${place.name[contentLang]} ${activeImage + 1}`} /><button className="lightbox-prev" onClick={previous}><ChevronLeft /></button><button className="lightbox-next" onClick={next}><ChevronRight /></button><span>{activeImage + 1} / {images.length}</span></div>}
+      {lightbox && <div className="detail-lightbox" role="dialog" aria-modal="true" onTouchStart={startImageSwipe} onTouchEnd={finishImageSwipe} onTouchCancel={() => { swipeStartRef.current = null; }}><button className="lightbox-close" onClick={() => setLightbox(false)}><X /></button><img src={images[activeImage]} alt={`${place.name[contentLang]} ${activeImage + 1}`} draggable="false" /><button className="lightbox-prev" onClick={previous}><ChevronLeft /></button><button className="lightbox-next" onClick={next}><ChevronRight /></button><span>{activeImage + 1} / {images.length}</span></div>}
       </div>
     </main>
   );
