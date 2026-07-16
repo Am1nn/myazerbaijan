@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Camera, ChevronLeft, ChevronRight, ExternalLink, MapPin, Maximize2, Menu, Moon, Navigation, Sun, X } from "lucide-react";
+import { ArrowUpRight, Camera, ChevronLeft, ChevronRight, ExternalLink, MapPin, Maximize2, Menu, Moon, Navigation, Sun, X } from "lucide-react";
 import Link from "next/link";
-import { places } from "../../data/places";
-import { getPlaceImages } from "../../data/placeMedia";
+import { placeCategories, places } from "../../data/places";
+import { getPlaceImage, getPlaceImages } from "../../data/placeMedia";
 import logo from "../../assets/icons/logo.svg";
 import googleMapsLogo from "../../assets/icons/google_maps.webp";
 import wazeLogo from "../../assets/icons/waze.png";
@@ -16,12 +16,13 @@ import "./PlaceDetailMobile.css";
 import "./PlaceDetailLightbox.css";
 import "./PlaceDetailRail.css";
 import "./RouteButtons.css";
+import "./RelatedPlaces.css";
 
 const text = {
-  az: { back: "Bütün məkanlar", selected: "Tarixi məkan bələdçisi", facts: "Əsas məlumatlar", story: "Məkan haqqında", route: "Ora necə getmək olar?", openWith: "Marşrutu aç", fullscreen: "Tam ekran" },
-  tr: { back: "Tüm mekânlar", selected: "Tarihi mekân rehberi", facts: "Temel bilgiler", story: "Mekân hakkında", route: "Oraya nasıl gidilir?", openWith: "Rotayı aç", fullscreen: "Tam ekran" },
-  en: { back: "All places", selected: "Historic place guide", facts: "Key facts", story: "About this place", route: "How to get there", openWith: "Open route in", fullscreen: "Full screen" },
-  ru: { back: "Все места", selected: "Гид по историческому месту", facts: "Основные факты", story: "Об этом месте", route: "Как добраться", openWith: "Открыть маршрут", fullscreen: "На весь экран" },
+  az: { back: "Bütün məkanlar", selected: "Tarixi məkan bələdçisi", facts: "Əsas məlumatlar", story: "Məkan haqqında", route: "Ora necə getmək olar?", openWith: "Marşrutu aç", fullscreen: "Tam ekran", related: "Bənzər məkanlar", relatedIntro: "Eyni kateqoriyadan kəşf edə biləcəyiniz digər tarixi yerlər", discover: "Məkanı kəşf et" },
+  tr: { back: "Tüm mekânlar", selected: "Tarihi mekân rehberi", facts: "Temel bilgiler", story: "Mekân hakkında", route: "Oraya nasıl gidilir?", openWith: "Rotayı aç", fullscreen: "Tam ekran", related: "Benzer mekânlar", relatedIntro: "Aynı kategoride keşfedebileceğiniz diğer tarihi yerler", discover: "Mekânı keşfet" },
+  en: { back: "All places", selected: "Historic place guide", facts: "Key facts", story: "About this place", route: "How to get there", openWith: "Open route in", fullscreen: "Full screen", related: "Similar places", relatedIntro: "More historic places to discover in the same category", discover: "Explore place" },
+  ru: { back: "Все места", selected: "Гид по историческому месту", facts: "Основные факты", story: "Об этом месте", route: "Как добраться", openWith: "Открыть маршрут", fullscreen: "На весь экран", related: "Похожие места", relatedIntro: "Другие исторические места той же категории", discover: "Открыть место" },
 };
 
 const additionalDescription = {
@@ -57,6 +58,9 @@ export default function PlaceDetail({ slug }) {
 
   if (!place) return null;
   const coordinates = `${place.coordinates[1]},${place.coordinates[0]}`;
+  const relatedPlaces = places
+    .filter((item) => item.id !== place.id && item.category === place.category)
+    .slice(0, 3);
 
   return (
     <main className={`place-detail-page theme-${theme}`}>
@@ -73,6 +77,21 @@ export default function PlaceDetail({ slug }) {
           <div className="route-panel"><div><Navigation /><span><strong>{t.route}</strong><small>{coordinates}</small></span></div><div className="route-links"><a className="route-google" href={`https://www.google.com/maps/dir/?api=1&destination=${coordinates}`} target="_blank" rel="noreferrer"><span className="route-logo"><img src={googleMapsLogo.src} alt="" /></span><span><small>{t.openWith}</small><strong>Google Maps</strong></span><ExternalLink /></a><a className="route-waze" href={`https://www.waze.com/ul?ll=${coordinates}&navigate=yes`} target="_blank" rel="noreferrer"><span className="route-logo"><img src={wazeLogo.src} alt="" /></span><span><small>{t.openWith}</small><strong>Waze</strong></span><ExternalLink /></a></div></div>
         </article>
       </section>
+      {relatedPlaces.length > 0 && (
+        <section className="related-places">
+          <div className="related-heading">
+            <div><h2>{t.related}</h2><p>{t.relatedIntro}</p></div>
+          </div>
+          <div className="related-grid">
+            {relatedPlaces.map((relatedPlace) => (
+              <Link className="related-card" href={`/places/${relatedPlace.slug}`} key={relatedPlace.id}>
+                <div className="related-image"><img src={getPlaceImage(relatedPlace.id)} alt={relatedPlace.name[contentLang]} /><span>{placeCategories[relatedPlace.category]?.[contentLang]}</span></div>
+                <div className="related-card-copy"><small><MapPin />{relatedPlace.city[contentLang]}</small><h3>{relatedPlace.name[contentLang]}</h3><p>{relatedPlace.shortDescription[contentLang]}</p><b>{t.discover}<ArrowUpRight /></b></div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
       {lightbox && <div className="detail-lightbox" role="dialog" aria-modal="true"><button className="lightbox-close" onClick={() => setLightbox(false)}><X /></button><img src={images[activeImage]} alt={`${place.name[contentLang]} ${activeImage + 1}`} /><button className="lightbox-prev" onClick={previous}><ChevronLeft /></button><button className="lightbox-next" onClick={next}><ChevronRight /></button><span>{activeImage + 1} / {images.length}</span></div>}
       </div>
     </main>

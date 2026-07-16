@@ -1487,10 +1487,38 @@ if (import.meta.env?.DEV) {
   validatePlaceCoordinates(placeRecords, verifiedCoordinates);
 }
 
+export const placeCategories = Object.freeze({
+  palace: { az: "Saray və malikanə", tr: "Saray ve konak", en: "Palace and mansion", ru: "Дворец и особняк" },
+  religious: { az: "Dini abidə", tr: "Dini yapı", en: "Religious monument", ru: "Религиозный памятник" },
+  historicQuarter: { az: "Tarixi və arxeoloji qoruq", tr: "Tarihi ve arkeolojik alan", en: "Historic and archaeological reserve", ru: "Историко-археологический заповедник" },
+  mosque: { az: "Məscid", tr: "Cami", en: "Mosque", ru: "Мечеть" },
+  caravanserai: { az: "Karvansara", tr: "Kervansaray", en: "Caravanserai", ru: "Караван-сарай" },
+  fortification: { az: "Qala və istehkam", tr: "Kale ve sur", en: "Castle and fortification", ru: "Крепость и укрепление" },
+  hammam: { az: "Hamam", tr: "Hamam", en: "Hammam", ru: "Хаммам" },
+  civic: { az: "İctimai memarlıq", tr: "Kamu mimarisi", en: "Civic architecture", ru: "Общественная архитектура" },
+});
+
+const categoryByPlaceId = Object.freeze({
+  1: "fortification",
+  2: "palace", 3: "religious", 4: "historicQuarter", 5: "historicQuarter",
+  6: "mosque", 7: "mosque", 8: "caravanserai", 9: "caravanserai",
+  10: "fortification", 11: "palace", 12: "hammam", 13: "hammam",
+  14: "caravanserai", 15: "caravanserai", 16: "hammam", 17: "hammam",
+  18: "mosque", 19: "civic", 20: "religious", 21: "mosque",
+  22: "mosque", 23: "mosque", 24: "mosque", 25: "fortification",
+  26: "mosque", 27: "mosque", 28: "mosque", 29: "religious",
+  30: "fortification", 31: "fortification", 32: "historicQuarter",
+  33: "fortification", 34: "fortification", 35: "fortification",
+  36: "palace", 37: "palace", 38: "palace", 39: "palace",
+  40: "civic", 41: "civic", 42: "religious", 43: "mosque",
+  44: "mosque", 45: "civic",
+});
+
 export const places = Object.freeze(
   placeRecords.map((place) =>
     Object.freeze({
       ...place,
+      category: categoryByPlaceId[place.id] ?? "civic",
       coordinates: Object.freeze(
         [...getVerifiedCoordinates(place.id, place.coordinates)],
       ),

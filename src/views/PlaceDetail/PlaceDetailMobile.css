@@ -1,4 +1,15 @@
+.place-title h1 {
+  line-height: 1.02;
+  overflow-wrap: anywhere;
+}
+
 @media (max-width: 620px) {
+  .place-title h1 {
+    line-height: 1.08;
+    letter-spacing: -0.045em;
+    overflow-wrap: anywhere;
+  }
+
   .detail-expand {
     width: 36px;
     padding: 0;
