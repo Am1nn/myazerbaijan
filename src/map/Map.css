@@ -80,6 +80,40 @@
   box-shadow: 0 14px 40px rgba(12, 25, 42, 0.16) !important;
 }
 
+.mapboxgl-ctrl-top-right {
+  z-index: 40;
+}
+
+.map-center-control-placeholder {
+  display: none !important;
+}
+
+.mapboxgl-ctrl .map-center-button {
+  display: grid;
+  place-items: center;
+  color: #283746;
+}
+
+.mapboxgl-ctrl .map-center-button svg {
+  width: 19px;
+  height: 19px;
+  display: block;
+  overflow: visible;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: none;
+}
+
+.theme-dark .mapboxgl-ctrl .map-center-button {
+  color: #fff;
+}
+
+.theme-dark .mapboxgl-ctrl .map-center-button:hover {
+  color: #18212b;
+}
+
 .theme-dark .mapboxgl-ctrl-group {
   background: rgba(26, 34, 45, 0.92) !important;
 }

@@ -12,6 +12,47 @@ const mapErrorText = {
   ru: "Карта сейчас не загружается. Пожалуйста, повторите попытку позже.",
 };
 
+const centerControlLabel = {
+  az: "İçərişəhərə qayıt",
+  tr: "İçerişehir'e dön",
+  en: "Return to the Old City",
+  ru: "Вернуться в Ичери-шехер",
+};
+
+class CenterControl {
+  constructor(label) {
+    this.label = label;
+  }
+
+  onAdd(map) {
+    this.map = map;
+    this.placeholder = document.createElement("div");
+    this.placeholder.className = "map-center-control-placeholder";
+
+    this.button = document.createElement("button");
+    this.button.type = "button";
+    this.button.className = "map-center-button";
+    this.button.setAttribute("aria-label", this.label);
+    this.button.title = this.label;
+    this.button.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="6.25"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></svg>';
+    this.button.addEventListener("click", this.handleClick);
+    const navigationGroup = map.getContainer().querySelector(".mapboxgl-ctrl-top-right .mapboxgl-ctrl-group");
+    navigationGroup?.appendChild(this.button);
+    return this.placeholder;
+  }
+
+  handleClick = () => {
+    this.map?.easeTo({ ...INITIAL_VIEW, duration: 900, essential: true });
+  };
+
+  onRemove() {
+    this.button?.removeEventListener("click", this.handleClick);
+    this.button?.remove();
+    this.placeholder?.remove();
+    this.map = undefined;
+  }
+}
+
 export default function Map({ places, lang, selectedPlace, onSelectPlace, theme }) {
   const containerRef = useRef(null);
   const mapRef = useRef(null);
@@ -60,6 +101,7 @@ export default function Map({ places, lang, selectedPlace, onSelectPlace, theme 
 
     try {
       map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), "top-right");
+      map.addControl(new CenterControl(centerControlLabel[lang] ?? centerControlLabel.en), "top-right");
     } catch (error) {
       console.warn("Map navigation controls could not be added:", error);
     }

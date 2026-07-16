@@ -80,6 +80,7 @@ button { color: inherit; }
 .panel-assistant .send-button svg{width:15px;height:15px;display:block}
 .assistant-conversation{height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:9px;padding:12px;margin-bottom:9px;border-radius:14px;background:var(--surface)}
 .ai-message{max-width:82%;padding:10px 12px;border-radius:13px 13px 13px 4px;background:var(--soft-blue);color:var(--ink);font-size:10px;line-height:1.55}
+.ai-route-shortcut{width:max-content;max-width:100%;margin-top:8px;padding:7px 9px;border-radius:9px;display:flex;align-items:center;gap:5px;background:#5d84df;color:#fff;text-decoration:none;font-size:9px;font-weight:800;line-height:1.2}.ai-route-shortcut svg{width:11px;height:11px;flex:0 0 auto}.ai-route-shortcut:hover{background:#4f76d2}
 .ai-context{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:9px}.ai-context svg{width:12px;color:#e75c55}
 .user-preview{align-self:flex-end;max-width:82%;padding:9px 11px;border-radius:13px 13px 4px 13px;background:#5d84df;color:white;font-size:10px;line-height:1.45}
 .ai-loading{color:var(--muted);font-style:italic}.panel-assistant .ask-bar input:disabled{cursor:not-allowed;opacity:.65}.panel-assistant .send-button:disabled{cursor:not-allowed;border-color:var(--line);background:var(--soft-blue);color:#8ca5dc;opacity:1;transform:none;box-shadow:none}.panel-assistant .send-button:not(:disabled):hover{background:#4f76d2;box-shadow:0 7px 17px rgba(63,105,200,.3)}
