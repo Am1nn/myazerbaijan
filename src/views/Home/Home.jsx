@@ -96,8 +96,8 @@ const copy = {
     map: "Xəritə",
     about: "Haqqımızda",
     search: "Məkan, şəhər və ya dövr axtar...",
-    bannerTitle: "Azərbaycanı bizimlə kəşf et!",
-    bannerText: "Tarixi məkanlardan gizli təbiət möcüzələrinə qədər yeni marşrutunu qur.",
+    bannerTitle: "Azərbaycanın tarixi irsini yaxından tanı",
+    bannerText: "Qalaları, sarayları və qədim abidələri xəritədə kəşf et, öz mədəni marşrutunu qur.",
     explore: "Kəşfə başla",
     greeting: "Bu gün hara gedirik?",
     assistant: "Səyahətini planlamağa kömək edəcəyəm. İstədiyin hər şeyi soruş.",
@@ -119,8 +119,8 @@ const copy = {
     map: "Map",
     about: "About",
     search: "Search a place, city or period...",
-    bannerTitle: "Discover Azerbaijan with us!",
-    bannerText: "Build a new route from heritage landmarks to hidden natural wonders.",
+    bannerTitle: "Step into Azerbaijan's historic heritage",
+    bannerText: "Find fortresses, palaces and ancient landmarks on the map, then build your own cultural route.",
     explore: "Start exploring",
     greeting: "Where to today?",
     assistant: "I’m here to help plan your journey. Ask me anything travel related.",
@@ -144,6 +144,11 @@ const copy = {
     discover:"Обзор",map:"Карта",about:"О нас",search:"Поиск места, города или эпохи...",bannerTitle:"Откройте Азербайджан вместе с нами!",bannerText:"Создайте маршрут от исторических мест до скрытых чудес природы.",explore:"Начать путешествие",greeting:"Куда отправимся сегодня?",assistant:"Я помогу спланировать путешествие. Задайте любой вопрос.",forYou:"Для вас",exploreMore:"Больше мест",places:"Места",recommendations:"Рекомендации",images:"Фотографии",sources:"Источники",ask:"Спросите меня...",selectForAi:"Спросите об исторических местах Азербайджана...",aiGreeting:"Здравствуйте! Спросите меня об исторических местах Азербайджана. Если выбрать место на карте, я буду отвечать только о нём.",aiRefusal:"Я могу отвечать только об исторических местах Азербайджана, представленных в проекте.",aiError:"Ответ не получен. Пожалуйста, повторите попытку.",thinking:"Подготовка ответа...",routeShortcut:"Посмотреть варианты маршрута",selected:"Выбранное место",details:"Подробнее",close:"Закрыть",
   },
 };
+
+copy.tr.bannerTitle = "Azerbaycan'ın tarihî mirasını yakından tanı";
+copy.tr.bannerText = "Kaleleri, sarayları ve kadim yapıları haritada keşfet; kendi kültür rotanı oluştur.";
+copy.ru.bannerTitle = "Познакомьтесь с историческим наследием Азербайджана";
+copy.ru.bannerText = "Найдите на карте крепости, дворцы и древние памятники и составьте свой культурный маршрут.";
 
 export default function Home() {
   const router = useRouter();
@@ -373,13 +378,13 @@ export default function Home() {
 
             <AnimatePresence mode="wait">
               {isMapFullscreen && selectedPlace && (
-                <motion.aside key={selectedPlace.id} className="map-place-preview" initial={{ opacity: 0, y: 14, scale: .97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 8 }}>
+                <motion.aside key={selectedPlace.id} className="map-place-preview" role="link" tabIndex={0} onClick={() => router.push(`/places/${selectedPlace.slug}`)} onKeyDown={(event) => { if (event.target === event.currentTarget && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); router.push(`/places/${selectedPlace.slug}`); } }} initial={{ opacity: 0, y: 14, scale: .97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 8 }}>
                   <img src={getPlaceImage(selectedPlace.id)} alt={selectedPlace.name[contentLang]} />
                   <div className="map-preview-info">
-                    <button className="map-preview-close" onClick={() => selectPlace(null)} aria-label={t.close}><X /></button>
+                    <button className="map-preview-close" onClick={(event) => { event.stopPropagation(); selectPlace(null); }} aria-label={t.close}><X /></button>
                     <h3>{selectedPlace.name[contentLang]}</h3>
                     <span>{selectedPlace.period[contentLang]}</span>
-                    <a href={`/places/${selectedPlace.slug}`}>{t.details}<ArrowRight /></a>
+                    <a href={`/places/${selectedPlace.slug}`} onClick={(event) => event.stopPropagation()}>{t.details}<ArrowRight /></a>
                   </div>
                 </motion.aside>
               )}
@@ -406,15 +411,17 @@ export default function Home() {
 
             <AnimatePresence mode="wait">
               {!isMapFullscreen && selectedPlace && (
-                <motion.aside ref={selectedPlaceRef} key={selectedPlace.id} className="place-detail place-detail-compact" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
-                  <button className="detail-close compact-close" onClick={() => selectPlace(null)} aria-label={t.close}><X /></button>
+                <motion.aside ref={selectedPlaceRef} key={selectedPlace.id} className="place-detail place-detail-compact" role="link" tabIndex={0} onClick={() => router.push(`/places/${selectedPlace.slug}`)} onKeyDown={(event) => { if (event.target === event.currentTarget && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); router.push(`/places/${selectedPlace.slug}`); } }} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
                   <img src={getPlaceImage(selectedPlace.id)} alt={selectedPlace.name[contentLang]} />
                   <div className="compact-place-info">
                     <span>{t.selected}</span>
                     <h2>{selectedPlace.name[contentLang]}</h2>
                     <strong>{selectedPlace.period[contentLang]}</strong>
                   </div>
-                  <a className="detail-more" href={`/places/${selectedPlace.slug}`}>{t.details}<ArrowRight /></a>
+                  <div className="compact-place-actions">
+                    <button className="detail-close compact-close" onClick={(event) => { event.stopPropagation(); selectPlace(null); }} aria-label={t.close} title={t.close}><X /></button>
+                    <a className="detail-more" href={`/places/${selectedPlace.slug}`} onClick={(event) => event.stopPropagation()}>{t.details}<ArrowRight /></a>
+                  </div>
                 </motion.aside>
               )}
             </AnimatePresence>

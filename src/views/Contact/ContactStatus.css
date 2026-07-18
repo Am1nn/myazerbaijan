@@ -1,0 +1,15 @@
+.contact-submit:disabled {
+  cursor: wait;
+  opacity: .7;
+}
+
+.contact-send-error {
+  margin-top: 24px;
+  padding: 14px;
+  border: 1px solid rgba(227, 93, 104, .3);
+  border-radius: 14px;
+  background: rgba(227, 93, 104, .08);
+  color: #d94b58;
+  font-size: 10px;
+  line-height: 1.5;
+}

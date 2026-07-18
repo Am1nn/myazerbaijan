@@ -13,10 +13,10 @@ import "./Places.css";
 import "./PlacesRail.css";
 
 const copy = {
-  az: { eyebrow: "Mədəni irs kolleksiyası", title: "Azərbaycanı hekayələri ilə kəşf et", intro: "Tarixi abidələr, qədim memarlıq və unudulmaz məkanlar üçün seçilmiş bələdçi.", search: "Məkan, şəhər və ya dövr axtar", count: "məkan", explore: "Məkanı kəşf et" },
-  tr: { eyebrow: "Kültürel miras koleksiyonu", title: "Azerbaycan'ı hikâyeleriyle keşfet", intro: "Tarihi yapılar, kadim mimari ve unutulmaz mekânlar için seçilmiş rehber.", search: "Mekân, şehir veya dönem ara", count: "mekân", explore: "Mekânı keşfet" },
-  en: { eyebrow: "Cultural heritage collection", title: "Discover Azerbaijan through its stories", intro: "A curated guide to historic landmarks, ancient architecture and unforgettable places.", search: "Search place, city or period", count: "places", explore: "Explore place" },
-  ru: { eyebrow: "Коллекция культурного наследия", title: "Откройте Азербайджан через его истории", intro: "Избранный гид по историческим памятникам, древней архитектуре и незабываемым местам.", search: "Поиск места, города или периода", count: "мест", explore: "Открыть место" },
+  az: { eyebrow: "Azərbaycanın mədəni irsi", title: "Azərbaycanı tarixi abidələri ilə kəşf et", intro: "Qədim qalalardan saraylara, məbədlərdən qayaüstü rəsmlərə — ölkənin zəngin keçmişini yaxından tanı.", search: "Abidə, şəhər və ya tarixi dövr axtar", count: "tarixi məkan", explore: "Abidə haqqında öyrən" },
+  tr: { eyebrow: "Azerbaycan'ın kültürel mirası", title: "Azerbaycan'ı tarihî yapılarıyla keşfet", intro: "Kadim kalelerden saraylara, tapınaklardan kaya resimlerine uzanan zengin geçmişi yakından tanıyın.", search: "Yapı, şehir veya tarihî dönem ara", count: "tarihî mekân", explore: "Yapıyı yakından tanı" },
+  en: { eyebrow: "Azerbaijan's cultural heritage", title: "Discover Azerbaijan through its historic landmarks", intro: "Explore a rich past shaped by ancient fortresses, palaces, temples and prehistoric rock art.", search: "Search landmark, city or historic period", count: "historic places", explore: "Discover its history" },
+  ru: { eyebrow: "Культурное наследие Азербайджана", title: "Откройте Азербайджан через его памятники", intro: "Познакомьтесь с богатым прошлым страны — от древних крепостей и дворцов до храмов и наскальных рисунков.", search: "Поиск памятника, города или эпохи", count: "исторических мест", explore: "Узнать историю места" },
 };
 
 export default function Places() {

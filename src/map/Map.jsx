@@ -141,7 +141,9 @@ export default function Map({ places, lang, selectedPlace, onSelectPlace, theme 
     const nextStyle = getMapStyle(theme);
     if (styleRef.current === nextStyle) return;
     styleRef.current = nextStyle;
-    map.setStyle(nextStyle, { diff: true });
+    // Sprite replacement is not implemented by Mapbox's style diff engine.
+    // Both custom themes own a sprite, so load the next style atomically.
+    map.setStyle(nextStyle, { diff: false });
   }, [theme]);
 
   useEffect(() => {

@@ -23,12 +23,13 @@ import LanguageSelector from "../../components/LanguageSelector/LanguageSelector
 import { usePreferences } from "../../context/usePreferences";
 import logo from "../../assets/icons/logo.svg";
 import "./Contact.css";
+import "./ContactStatus.css";
 
 const copy = {
   az: {
     eyebrow: "Bizimlə əlaqə",
     title: "Səyahətiniz bir salamla başlasın.",
-    intro: "Sualınız, təklifiniz və ya paylaşmaq istədiyiniz bir hekayə var? Komandamız sizi dinləməyə hazırdır.",
+    intro: "Sualınız, təklifiniz və ya qarşılaşdığınız bir problem var? Bizə ətraflı yazın, komandamız sizə kömək etsin.",
     availability: "Adətən 24 saat ərzində cavab veririk",
     formTitle: "Bizə mesaj göndərin",
     formText: "Aşağıdakı formanı doldurun, ən qısa zamanda sizinlə əlaqə saxlayaq.",
@@ -38,35 +39,43 @@ const copy = {
     sentText: "E-poçt tətbiqiniz açılacaq. Mesajı göndərməzdən əvvəl son dəfə yoxlaya bilərsiniz.",
     direct: "Birbaşa əlaqə", office: "Bakı ofisi", officeText: "İçərişəhər, Bakı, Azərbaycan",
     mail: "E-poçt", phone: "Telefon", hours: "İş saatları", hoursText: "B.e. – Cümə, 09:00 – 18:00",
-    explore: "Bu arada Azərbaycanı kəşf edin", places: "Məkanlara bax",
+    explore: "Keçmişin izləri ilə Azərbaycanı yenidən tanıyın", places: "Tarixi abidələrə bax",
     footer: "Azərbaycan üçün hazırlanmış rəqəmsal səyahət atlası.", required: "Bu sahəni doldurun.", invalidEmail: "Düzgün e-poçt ünvanı daxil edin.",
   },
   en: {
-    eyebrow: "Get in touch", title: "Let your journey begin with hello.", intro: "Have a question, an idea, or a story worth sharing? Our team is ready to listen.", availability: "We usually reply within 24 hours",
+    eyebrow: "Get in touch", title: "Let your journey begin with hello.", intro: "Have a question, suggestion, or problem to report? Tell us the details and our team will help you.", availability: "We usually reply within 24 hours",
     formTitle: "Send us a message", formText: "Fill in the form and we will get back to you as soon as possible.", name: "Full name", email: "Email", subject: "Subject", message: "Your message",
     namePh: "Enter your name", emailPh: "you@email.com", subjectPh: "How can we help?", messagePh: "Share your thoughts with us...", send: "Prepare message", sent: "Your message is ready", sentText: "Your email app will open. You can review the message before sending it.",
-    direct: "Direct contact", office: "Baku office", officeText: "Old City, Baku, Azerbaijan", mail: "Email", phone: "Phone", hours: "Working hours", hoursText: "Mon – Fri, 09:00 – 18:00", explore: "Explore Azerbaijan in the meantime", places: "View places", footer: "A digital travel atlas made for Azerbaijan.", required: "Please complete this field.", invalidEmail: "Enter a valid email address.",
+    direct: "Direct contact", office: "Baku office", officeText: "Old City, Baku, Azerbaijan", mail: "Email", phone: "Phone", hours: "Working hours", hoursText: "Mon – Fri, 09:00 – 18:00", explore: "Rediscover Azerbaijan through the traces of its past", places: "View historic landmarks", footer: "A digital travel atlas made for Azerbaijan.", required: "Please complete this field.", invalidEmail: "Enter a valid email address.",
   },
   tr: {
-    eyebrow: "Bize ulaşın", title: "Yolculuğunuz bir merhabayla başlasın.", intro: "Bir sorunuz, fikriniz ya da paylaşmak istediğiniz bir hikâye mi var? Ekibimiz sizi dinlemeye hazır.", availability: "Genellikle 24 saat içinde yanıtlıyoruz",
-    formTitle: "Bize mesaj gönderin", formText: "Formu doldurun, en kısa sürede sizinle iletişime geçelim.", name: "Ad soyad", email: "E-posta", subject: "Konu", message: "Mesajınız", namePh: "Adınızı girin", emailPh: "siz@email.com", subjectPh: "Nasıl yardımcı olabiliriz?", messagePh: "Düşüncelerinizi bizimle paylaşın...", send: "Mesajı hazırla", sent: "Mesajınız hazır", sentText: "E-posta uygulamanız açılacak. Göndermeden önce mesajı kontrol edebilirsiniz.", direct: "Doğrudan iletişim", office: "Bakü ofisi", officeText: "İçerişehir, Bakü, Azerbaycan", mail: "E-posta", phone: "Telefon", hours: "Çalışma saatleri", hoursText: "Pzt – Cum, 09:00 – 18:00", explore: "Bu sırada Azerbaycan'ı keşfedin", places: "Mekânlara bak", footer: "Azerbaycan için hazırlanmış dijital seyahat atlası.", required: "Bu alanı doldurun.", invalidEmail: "Geçerli bir e-posta adresi girin.",
+    eyebrow: "Bize ulaşın", title: "Yolculuğunuz bir merhabayla başlasın.", intro: "Bir sorunuz, öneriniz veya karşılaştığınız bir sorun mu var? Ayrıntıları bize yazın, ekibimiz size yardımcı olsun.", availability: "Genellikle 24 saat içinde yanıtlıyoruz",
+    formTitle: "Bize mesaj gönderin", formText: "Formu doldurun, en kısa sürede sizinle iletişime geçelim.", name: "Ad soyad", email: "E-posta", subject: "Konu", message: "Mesajınız", namePh: "Adınızı girin", emailPh: "siz@email.com", subjectPh: "Nasıl yardımcı olabiliriz?", messagePh: "Düşüncelerinizi bizimle paylaşın...", send: "Mesajı hazırla", sent: "Mesajınız hazır", sentText: "E-posta uygulamanız açılacak. Göndermeden önce mesajı kontrol edebilirsiniz.", direct: "Doğrudan iletişim", office: "Bakü ofisi", officeText: "İçerişehir, Bakü, Azerbaycan", mail: "E-posta", phone: "Telefon", hours: "Çalışma saatleri", hoursText: "Pzt – Cum, 09:00 – 18:00", explore: "Geçmişin izleriyle Azerbaycan'ı yeniden tanıyın", places: "Tarihî yapıları incele", footer: "Azerbaycan için hazırlanmış dijital seyahat atlası.", required: "Bu alanı doldurun.", invalidEmail: "Geçerli bir e-posta adresi girin.",
   },
   ru: {
-    eyebrow: "Связаться с нами", title: "Пусть путешествие начнётся с приветствия.", intro: "Есть вопрос, идея или история, которой хочется поделиться? Наша команда готова вас выслушать.", availability: "Обычно отвечаем в течение 24 часов",
-    formTitle: "Отправьте нам сообщение", formText: "Заполните форму, и мы свяжемся с вами как можно скорее.", name: "Имя и фамилия", email: "Эл. почта", subject: "Тема", message: "Сообщение", namePh: "Введите ваше имя", emailPh: "you@email.com", subjectPh: "Чем мы можем помочь?", messagePh: "Поделитесь с нами своими мыслями...", send: "Подготовить письмо", sent: "Ваше письмо готово", sentText: "Откроется почтовое приложение. Проверьте письмо перед отправкой.", direct: "Прямая связь", office: "Офис в Баку", officeText: "Ичери-шехер, Баку, Азербайджан", mail: "Эл. почта", phone: "Телефон", hours: "Часы работы", hoursText: "Пн – Пт, 09:00 – 18:00", explore: "А пока откройте для себя Азербайджан", places: "Смотреть места", footer: "Цифровой туристический атлас Азербайджана.", required: "Заполните это поле.", invalidEmail: "Введите корректный адрес.",
+    eyebrow: "Связаться с нами", title: "Пусть путешествие начнётся с приветствия.", intro: "Есть вопрос, предложение или возникла проблема? Опишите подробности, и наша команда постарается вам помочь.", availability: "Обычно отвечаем в течение 24 часов",
+    formTitle: "Отправьте нам сообщение", formText: "Заполните форму, и мы свяжемся с вами как можно скорее.", name: "Имя и фамилия", email: "Эл. почта", subject: "Тема", message: "Сообщение", namePh: "Введите ваше имя", emailPh: "you@email.com", subjectPh: "Чем мы можем помочь?", messagePh: "Поделитесь с нами своими мыслями...", send: "Подготовить письмо", sent: "Ваше письмо готово", sentText: "Откроется почтовое приложение. Проверьте письмо перед отправкой.", direct: "Прямая связь", office: "Офис в Баку", officeText: "Ичери-шехер, Баку, Азербайджан", mail: "Эл. почта", phone: "Телефон", hours: "Часы работы", hoursText: "Пн – Пт, 09:00 – 18:00", explore: "Откройте Азербайджан по следам его прошлого", places: "Смотреть памятники", footer: "Цифровой туристический атлас Азербайджана.", required: "Заполните это поле.", invalidEmail: "Введите корректный адрес.",
   },
 };
+
+copy.az.send = "Mesajınızı bizə çatdırın";
+copy.tr.send = "Mesajınızı bize ulaştırın";
+copy.en.send = "Send your message our way";
+copy.ru.send = "Отправить сообщение команде";
 
 export default function Contact() {
   const { lang, setLang, theme, setTheme } = usePreferences();
   const [mobileNav, setMobileNav] = useState(false);
   const [errors, setErrors] = useState({});
   const [prepared, setPrepared] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
   const reduceMotion = useReducedMotion();
   const t = copy[lang] || copy.az;
+  const deliveredText = lang === "az" ? ["Mesaj göndərildi", "Mesajınız uğurla aminbennayevv@gmail.com ünvanına göndərildi."] : lang === "tr" ? ["Mesaj gönderildi", "Mesajınız başarıyla aminbennayevv@gmail.com adresine gönderildi."] : lang === "ru" ? ["Сообщение отправлено", "Ваше сообщение успешно отправлено на aminbennayevv@gmail.com."] : ["Message sent", "Your message was delivered successfully to aminbennayevv@gmail.com."];
   const reveal = { initial: reduceMotion ? false : { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: .2 }, transition: { duration: .6, ease: [0.22, 1, 0.36, 1] } };
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const nextErrors = {};
@@ -74,16 +83,25 @@ export default function Contact() {
     if (data.get("email") && !/^\S+@\S+\.\S+$/.test(data.get("email"))) nextErrors.email = t.invalidEmail;
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length) return;
-    setPrepared(true);
-    const subject = encodeURIComponent(`[MyAzerbaijan] ${data.get("subject")}`);
-    const body = encodeURIComponent(`${data.get("message")}\n\n— ${data.get("name")}\n${data.get("email")}`);
-    window.location.href = `mailto:hello@myazerbaijan.az?subject=${subject}&body=${body}`;
+    setPrepared(false);
+    setSendError("");
+    setSending(true);
+    try {
+      const response = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(Object.fromEntries(data)) });
+      if (!response.ok) throw new Error("Message delivery failed");
+      setPrepared(true);
+      event.currentTarget.reset();
+    } catch {
+      setSendError(lang === "az" ? "Mesaj göndərilmədi. Zəhmət olmasa bir az sonra yenidən yoxlayın." : lang === "tr" ? "Mesaj gönderilemedi. Lütfen biraz sonra tekrar deneyin." : lang === "ru" ? "Сообщение не отправлено. Пожалуйста, повторите попытку позже." : "The message could not be sent. Please try again shortly.");
+    } finally {
+      setSending(false);
+    }
   }
 
   const contactCards = [
-    { Icon: MapPin, label: t.office, value: t.officeText, href: "https://maps.google.com/?q=Icherisheher+Baku" },
-    { Icon: Mail, label: t.mail, value: "hello@myazerbaijan.az", href: "mailto:hello@myazerbaijan.az" },
-    { Icon: Phone, label: t.phone, value: "+994 12 555 01 01", href: "tel:+994125550101" },
+    { Icon: MapPin, label: t.office, value: "Bakı, Azərbaycan", href: "https://maps.google.com/?q=Baku+Azerbaijan" },
+    { Icon: Mail, label: t.mail, value: "aminbennayevv@gmail.com", href: "mailto:aminbennayevv@gmail.com" },
+    { Icon: Phone, label: t.phone, value: "••••••••••" },
     { Icon: Clock3, label: t.hours, value: t.hoursText },
   ];
 
@@ -105,12 +123,13 @@ export default function Contact() {
       <section className="contact-content">
         <motion.div className="contact-form-card" {...reveal}>
           <div className="contact-section-title"><span>01 / Message</span><h2>{t.formTitle}</h2><p>{t.formText}</p></div>
-          {prepared && <motion.div className="contact-success" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} role="status"><CheckCircle2 /><div><strong>{t.sent}</strong><span>{t.sentText}</span></div></motion.div>}
+          {prepared && <motion.div className="contact-success" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} role="status"><CheckCircle2 /><div><strong>{deliveredText[0]}</strong><span>{deliveredText[1]}</span></div></motion.div>}
+          {sendError && <div className="contact-send-error" role="alert">{sendError}</div>}
           <form onSubmit={handleSubmit} noValidate>
             <div className="contact-field-row"><Field id="name" label={t.name} placeholder={t.namePh} error={errors.name} /><Field id="email" type="email" label={t.email} placeholder={t.emailPh} error={errors.email} /></div>
             <Field id="subject" label={t.subject} placeholder={t.subjectPh} error={errors.subject} />
             <Field id="message" label={t.message} placeholder={t.messagePh} error={errors.message} textarea />
-            <button className="contact-submit" type="submit"><span>{t.send}</span><Send /></button>
+            <button className="contact-submit" type="submit" disabled={sending}><span>{sending ? "..." : t.send}</span><Send /></button>
           </form>
         </motion.div>
 
