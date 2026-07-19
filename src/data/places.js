@@ -4,6 +4,8 @@ const officialOldCitySource =
 const bakuTourismSource =
   "https://azerbaijan.travel/take-a-walking-tour-of-bakus-oil-boom-architecture";
 
+// Used by the temporarily hidden place records below.
+// eslint-disable-next-line no-unused-vars
 const absheronSource = "https://azerbaijan.travel/heritage-sites";
 
 // Mapbox coordinate order: [longitude, latitude]
@@ -37,13 +39,11 @@ const verifiedCoordinates = Object.freeze({
   27: [49.83455, 40.364681],
   28: [49.832575, 40.365971],
   29: [49.8335313, 40.3658741],
-  30: [49.833858, 40.366072],
   31: [49.9799046, 40.4561593],
   32: [50.169547, 40.439686],
   33: [50.140593, 40.4921351],
   34: [50.1471048, 40.4957271],
   35: [50.0047879, 40.5614515],
-  36: [49.8728, 40.3837],
   37: [49.840103, 40.369423],
   38: [49.8317, 40.368714],
   39: [49.8337235, 40.3685373],
@@ -52,7 +52,6 @@ const verifiedCoordinates = Object.freeze({
   42: [49.8476511, 40.3771548],
   43: [49.828786, 40.372056],
   44: [49.8202995, 40.3086644],
-  45: [49.850439, 40.380178],
 });
 
 const getVerifiedCoordinates = (id, fallbackCoordinates) =>
@@ -1007,29 +1006,6 @@ const placeRecords = [
       ru: "Мавзолей в комплексе Дворца Ширваншахов, связанный с учёным и суфием Сеидом Яхьёй Бакуви.",
     },
   }),
-  oldCityMonument({
-    id: 30,
-    slug: "murad-gate",
-    coordinates: [49.8335, 40.3655],
-    name: {
-      az: "Murad darvazası",
-      tr: "Murad Kapısı",
-      en: "Murad Gate",
-      ru: "Ворота Мурада",
-    },
-    period: {
-      az: "1585–1586",
-      tr: "1585–1586",
-      en: "1585–1586",
-      ru: "1585–1586",
-    },
-    note: {
-      az: "Şirvanşahlar Sarayı ansamblının Osmanlı hakimiyyəti dövründə əlavə edilmiş şərq portalıdır.",
-      tr: "Şirvanşahlar Sarayı topluluğuna Osmanlı yönetimi döneminde eklenen doğu portalıdır.",
-      en: "The eastern portal added to the Shirvanshahs' Palace ensemble during Ottoman rule.",
-      ru: "Восточный портал, добавленный к ансамблю Дворца Ширваншахов в период османского правления.",
-    },
-  }),
   greaterBakuMonument({
     id: 31,
     slug: "ramana-castle",
@@ -1055,6 +1031,10 @@ const placeRecords = [
       ru: "Оборонительная крепость на скале, связанная с эпохой Ширваншахов.",
     },
   }),
+  /*
+   * Temporarily hidden places. Keep these records here so they can be
+   * published later by removing this block comment.
+   *
   greaterBakuMonument({
     id: 32,
     slug: "gala-reserve",
@@ -1164,30 +1144,6 @@ const placeRecords = [
       tr: "Kitabesi bulunan, Abşeron'un Orta Çağ savunma sistemine ait kale kuledir.",
       en: "An inscribed castle-tower forming part of Absheron's medieval defence system.",
       ru: "Крепость-башня с надписью, входившая в средневековую оборонительную систему Апшерона.",
-    },
-  }),
-  greaterBakuMonument({
-    id: 36,
-    slug: "villa-petrolea",
-    coordinates: [49.8728, 40.3837],
-    source: "https://azerbaijan.travel/nobel-brothers-house-museum",
-    name: {
-      az: "Villa Petrolea — Nobel qardaşlarının evi",
-      tr: "Villa Petrolea — Nobel Kardeşler Evi",
-      en: "Villa Petrolea — Nobel Brothers' House",
-      ru: "Вилла Петролеа — дом братьев Нобелей",
-    },
-    period: {
-      az: "1882–1884",
-      tr: "1882–1884",
-      en: "1882–1884",
-      ru: "1882–1884",
-    },
-    note: {
-      az: "Nobel ailəsinin Bakı iqamətgahı kimi tikilmiş, bu gün ev-muzeyi olan neft bumu malikanəsidir.",
-      tr: "Nobel ailesinin Bakü konutu olarak inşa edilmiş, bugün ev müzesi olan petrol patlaması dönemi konağıdır.",
-      en: "An oil-boom mansion built as the Nobel family's Baku residence and now operating as a house museum.",
-      ru: "Особняк нефтяного бума, построенный как бакинская резиденция Нобелей и ныне работающий как дом-музей.",
     },
   }),
   greaterBakuMonument({
@@ -1374,29 +1330,7 @@ const placeRecords = [
       ru: "Религиозный комплекс, восстановленный на месте исторической святыни после разрушения прежнего здания в советский период.",
     },
   }),
-  greaterBakuMonument({
-    id: 45,
-    slug: "baku-railway-station",
-    coordinates: [49.8491, 40.3798],
-    name: {
-      az: "Bakı dəmiryol vağzalının tarixi binası",
-      tr: "Bakü Tren Garı Tarihî Binası",
-      en: "Historic Baku Railway Station",
-      ru: "Историческое здание Бакинского вокзала",
-    },
-    period: {
-      az: "XIX əsrin sonu",
-      tr: "XIX. yüzyıl sonu",
-      en: "late 19th century",
-      ru: "конец XIX века",
-    },
-    note: {
-      az: "Bakının dəmiryol tarixini və neft bumu dövrünün nəqliyyat inkişafını əks etdirən vağzal kompleksidir.",
-      tr: "Bakü'nün demiryolu tarihini ve petrol patlaması döneminin ulaşım gelişimini yansıtan gar kompleksidir.",
-      en: "A station complex reflecting Baku's railway history and the transport growth of the oil-boom era.",
-      ru: "Вокзальный комплекс, отражающий железнодорожную историю Баку и транспортное развитие эпохи нефтяного бума.",
-    },
-  }),
+  */
 ];
 
 const validatePlaceCoordinates = (records, coordinateOverrides) => {
@@ -1507,11 +1441,11 @@ const categoryByPlaceId = Object.freeze({
   18: "mosque", 19: "civic", 20: "religious", 21: "mosque",
   22: "mosque", 23: "mosque", 24: "mosque", 25: "fortification",
   26: "mosque", 27: "mosque", 28: "mosque", 29: "religious",
-  30: "fortification", 31: "fortification", 32: "historicQuarter",
+  31: "fortification", 32: "historicQuarter",
   33: "fortification", 34: "fortification", 35: "fortification",
-  36: "palace", 37: "palace", 38: "palace", 39: "palace",
+  37: "palace", 38: "palace", 39: "palace",
   40: "civic", 41: "civic", 42: "religious", 43: "mosque",
-  44: "mosque", 45: "civic",
+  44: "mosque",
 });
 
 export const places = Object.freeze(

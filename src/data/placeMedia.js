@@ -61,6 +61,33 @@ import tekya3 from "../assets/places/Təkiyə/Təkiyə(3).jpg";
 import khojaBaniMosque1 from "../assets/places/Xoca-Bani-Məscidi/XocaBaniMəscidi(1).jpg";
 import khojaBaniMosque2 from "../assets/places/Xoca-Bani-Məscidi/XocaBaniMəscidi(2).jpg";
 import khojaBaniMosque3 from "../assets/places/Xoca-Bani-Məscidi/XocaBaniMəscidi(3).jpg";
+import gileyliMosque1 from "../assets/places/Gileyli-Məscidi/GileyliMəscidi(1).jpg";
+import gileyliMosque2 from "../assets/places/Gileyli-Məscidi/GileyliMəscidi(2).jpg";
+import gileyliMosque3 from "../assets/places/Gileyli-Məscidi/GileyliMəscidi(3).jpg";
+import khidirMosque1 from "../assets/places/Xıdır-Məscidi/XıdırMəscidi(1).jpg";
+import khidirMosque2 from "../assets/places/Xıdır-Məscidi/XıdırMəscidi(2).jpg";
+import khidirMosque3 from "../assets/places/Xıdır-Məscidi/XıdırMəscidi(3).jpg";
+import mollaAhmadMosque1 from "../assets/places/Molla-Əhməd-Məscidi/MollaƏhmədMəscidi(1).jpg";
+import mollaAhmadMosque2 from "../assets/places/Molla-Əhməd-Məscidi/MollaƏhmədMəscidi(2).jpg";
+import mollaAhmadMosque3 from "../assets/places/Molla-Əhməd-Məscidi/MollaƏhmədMəscidi(3).jpg";
+import quadrangularTower1 from "../assets/places/Dördkünc-Qala/DördküncQala(1).jpg";
+import quadrangularTower2 from "../assets/places/Dördkünc-Qala/DördküncQala(2).jpg";
+import quadrangularTower3 from "../assets/places/Dördkünc-Qala/DördküncQala(3).jpg";
+import khansMosque1 from "../assets/places/Xanlar-Məscidi/XanlarMəscidi(1).jpg";
+import khansMosque2 from "../assets/places/Xanlar-Məscidi/XanlarMəscidi(2).jpg";
+import khansMosque3 from "../assets/places/Xanlar-Məscidi/XanlarMəscidi(3).jpg";
+import sheikhIbrahimMosque1 from "../assets/places/Şeyx-İbrahim-Məscidi/ŞeyxİbrahimMəscidi(1).jpg";
+import sheikhIbrahimMosque2 from "../assets/places/Şeyx-İbrahim-Məscidi/ŞeyxİbrahimMəscidi(2).jpg";
+import sheikhIbrahimMosque3 from "../assets/places/Şeyx-İbrahim-Məscidi/ŞeyxİbrahimMəscidi(3).jpg";
+import chinMosque1 from "../assets/places/Çin-Məscidi/ÇinMəscidi(1).jpg";
+import chinMosque2 from "../assets/places/Çin-Məscidi/ÇinMəscidi(2).jpg";
+import chinMosque3 from "../assets/places/Çin-Məscidi/ÇinMəscidi(3).jpg";
+import seyidYahyaBakuvi1 from "../assets/places/Seyid-Yəhya-Bakuvi-Türbəsi/SeyidYəhyaBakuviTürbəsi(1).jpg";
+import seyidYahyaBakuvi2 from "../assets/places/Seyid-Yəhya-Bakuvi-Türbəsi/SeyidYəhyaBakuviTürbəsi(2).jpg";
+import seyidYahyaBakuvi3 from "../assets/places/Seyid-Yəhya-Bakuvi-Türbəsi/SeyidYəhyaBakuviTürbəsi(3).jpg";
+import ramanaCastle1 from "../assets/places/Ramana-Qalası/RamanaQalası(1).jpg";
+import ramanaCastle2 from "../assets/places/Ramana-Qalası/RamanaQalası(2).jpg";
+import ramanaCastle3 from "../assets/places/Ramana-Qalası/RamanaQalası(3).jpg";
 import placeFallback from "../assets/images/azerbaijan-loader.jpg";
 
 export const placeMedia = {
@@ -121,6 +148,15 @@ export const placeMedia = {
   19: [bazaarSquare1.src, bazaarSquare2.src, bazaarSquare3.src],
   20: [tekya1.src, tekya2.src, tekya3.src],
   21: [khojaBaniMosque1.src, khojaBaniMosque2.src, khojaBaniMosque3.src],
+  22: [gileyliMosque1.src, gileyliMosque2.src, gileyliMosque3.src],
+  23: [khidirMosque1.src, khidirMosque2.src, khidirMosque3.src],
+  24: [mollaAhmadMosque1.src, mollaAhmadMosque2.src, mollaAhmadMosque3.src],
+  25: [quadrangularTower1.src, quadrangularTower2.src, quadrangularTower3.src],
+  26: [khansMosque1.src, khansMosque2.src, khansMosque3.src],
+  27: [sheikhIbrahimMosque1.src, sheikhIbrahimMosque2.src, sheikhIbrahimMosque3.src],
+  28: [chinMosque1.src, chinMosque2.src, chinMosque3.src],
+  29: [seyidYahyaBakuvi1.src, seyidYahyaBakuvi2.src, seyidYahyaBakuvi3.src],
+  31: [ramanaCastle1.src, ramanaCastle2.src, ramanaCastle3.src],
 };
 
 export const getPlaceImages = (placeId) => placeMedia[placeId] ?? [placeFallback.src];

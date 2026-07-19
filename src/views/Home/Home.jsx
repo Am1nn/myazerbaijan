@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import {
   ArrowRight,
   Bot,
@@ -158,13 +159,33 @@ export default function Home() {
   const [chatValue, setChatValue] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
   const [chatLoading, setChatLoading] = useState(false);
+  const [aiReady, setAiReady] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
   const [isMapFullscreen, setIsMapFullscreen] = useState(false);
   const mapPanelRef = useRef(null);
   const selectedPlaceRef = useRef(null);
   const chatRequestRef = useRef(0);
+  const puterRef = useRef(null);
   const t = copy[lang];
   const contentLang = lang;
+  const authCopy = {
+    az: "Təsdiq tamamlanmadı. Yenidən cəhd edin.",
+    tr: "Doğrulama tamamlanmadı. Tekrar deneyin.",
+    en: "Verification was not completed. Please try again.",
+    ru: "Проверка не завершена. Попробуйте снова.",
+  }[lang];
+
+  useEffect(() => {
+    let active = true;
+    import("@heyputer/puter.js")
+      .then(({ puter }) => {
+        if (!active) return;
+        puterRef.current = puter;
+        setAiReady(true);
+      })
+      .catch((error) => console.error("Puter AI failed to load:", error));
+    return () => { active = false; };
+  }, []);
 
   const filteredPlaces = useMemo(() => {
     const term = query.trim().toLocaleLowerCase(lang === "az" ? "az" : "en");
@@ -207,7 +228,15 @@ export default function Home() {
     setChatLoading(true);
 
     try {
-      const { puter } = await import("@heyputer/puter.js");
+      const puter = puterRef.current;
+      if (!puter) throw new Error("AI client is not ready");
+
+      // Start authentication directly inside the submit gesture. Safari blocks
+      // popups that are opened after a dynamic import or another awaited task.
+      if (!puter.auth.isSignedIn()) {
+        await puter.auth.signIn({ attempt_temp_user_creation: true });
+        if (chatRequestRef.current !== requestId) return;
+      }
       const response = await puter.ai.chat([
         { role: "system", content: createSystemPrompt(placeAtRequest, lang, t.aiRefusal) },
         ...previousMessages,
@@ -225,7 +254,8 @@ export default function Home() {
     } catch (error) {
       console.error("Puter AI request failed:", error);
       if (chatRequestRef.current === requestId) {
-        setChatMessages((messages) => [...messages, { role: "assistant", content: t.aiError }]);
+        const isAuthError = ["popup_blocked", "auth_window_closed"].includes(error?.error);
+        setChatMessages((messages) => [...messages, { role: "assistant", content: isAuthError ? authCopy : t.aiError }]);
       }
     } finally {
       if (chatRequestRef.current === requestId) setChatLoading(false);
@@ -384,7 +414,7 @@ export default function Home() {
                     <button className="map-preview-close" onClick={(event) => { event.stopPropagation(); selectPlace(null); }} aria-label={t.close}><X /></button>
                     <h3>{selectedPlace.name[contentLang]}</h3>
                     <span>{selectedPlace.period[contentLang]}</span>
-                    <a href={`/places/${selectedPlace.slug}`} onClick={(event) => event.stopPropagation()}>{t.details}<ArrowRight /></a>
+                    <Link href={`/places/${selectedPlace.slug}`} onClick={(event) => event.stopPropagation()}>{t.details}<ArrowRight /></Link>
                   </div>
                 </motion.aside>
               )}
@@ -420,7 +450,7 @@ export default function Home() {
                   </div>
                   <div className="compact-place-actions">
                     <button className="detail-close compact-close" onClick={(event) => { event.stopPropagation(); selectPlace(null); }} aria-label={t.close} title={t.close}><X /></button>
-                    <a className="detail-more" href={`/places/${selectedPlace.slug}`} onClick={(event) => event.stopPropagation()}>{t.details}<ArrowRight /></a>
+                    <Link className="detail-more" href={`/places/${selectedPlace.slug}`} onClick={(event) => event.stopPropagation()}>{t.details}<ArrowRight /></Link>
                   </div>
                 </motion.aside>
               )}
@@ -441,14 +471,14 @@ export default function Home() {
                 {chatMessages.map((message, index) => (
                   <div className={message.role === "user" ? "user-preview" : "ai-message"} key={`${message.role}-${index}`}>
                     <span>{message.content}</span>
-                    {message.routeSlug && <a className="ai-route-shortcut" href={`/places/${message.routeSlug}#route-options`}>{t.routeShortcut}<ArrowRight /></a>}
+                    {message.routeSlug && <Link className="ai-route-shortcut" href={`/places/${message.routeSlug}#route-options`}>{t.routeShortcut}<ArrowRight /></Link>}
                   </div>
                 ))}
                 {chatLoading && <div className="ai-message ai-loading">{t.thinking}</div>}
               </div>
               <form className="ask-bar" onSubmit={sendChatMessage}>
-                <input value={chatValue} onChange={(event) => setChatValue(event.target.value)} placeholder={selectedPlace ? t.ask : t.selectForAi} disabled={chatLoading} />
-                <button className="send-button" type="submit" aria-label="Send" disabled={!chatValue.trim() || chatLoading}><Send /></button>
+                <input value={chatValue} onChange={(event) => setChatValue(event.target.value)} placeholder={selectedPlace ? t.ask : t.selectForAi} disabled={chatLoading || !aiReady} />
+                <button className="send-button" type="submit" aria-label="Send" disabled={!chatValue.trim() || chatLoading || !aiReady}><Send /></button>
               </form>
             </div>
           </aside>
